@@ -9,10 +9,12 @@ let workSessionDuration = 1500;
 let currentTimeLeftInSession = 1500;
 let breakSessionDuration = 300;
 let timerInterval = null;
+let timerRunning = false;
 
 const timer = () => {
   currentTimeLeftInSession--;
   if (currentTimeLeftInSession < 0) {
+    timerRunning = false;
     clearInterval(timerInterval);
     currentTimeLeftInSession = 0;
     timerMessage.textContent = "Take a break";
@@ -21,11 +23,15 @@ const timer = () => {
 };
 
 startButton.addEventListener("click", () => {
-  timerInterval = setInterval(timer, 1000);
-  timerMessage.textContent = "Keep Working";
+  if (!timerRunning) {
+    timerRunning = true;
+    timerInterval = setInterval(timer, 1000);
+    timerMessage.textContent = "Keep Working";
+  }
 });
 
 stopButton.addEventListener("click", () => {
+  timerRunning = false;
   clearInterval(timerInterval);
   resetTimerSeconds();
   displayTimeLeft(currentTimeLeftInSession);
@@ -33,6 +39,7 @@ stopButton.addEventListener("click", () => {
 });
 
 pauseButton.addEventListener("click", () => {
+  timerRunning = false;
   clearInterval(timerInterval);
   displayTimeLeft(currentTimeLeftInSession);
   timerMessage.textContent = "Pausing...";
