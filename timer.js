@@ -3,7 +3,7 @@ const timerDisplay = document.querySelector("#timer-display");
 
 const startButton = document.querySelector("#start-button");
 const pauseButton = document.querySelector("#pause-button");
-const stopButton = document.querySelector("#stop-button");
+const resetButton = document.querySelector("#reset-button");
 
 let workSessionDuration = 1500;
 let currentTimeLeftInSession = 1500;
@@ -30,12 +30,12 @@ startButton.addEventListener("click", () => {
   }
 });
 
-stopButton.addEventListener("click", () => {
+resetButton.addEventListener("click", () => {
   timerRunning = false;
   clearInterval(timerInterval);
   resetTimerSeconds();
   displayTimeLeft(currentTimeLeftInSession);
-  timerMessage.textContent = "Stopped...";
+  timerMessage.textContent = "reset...";
 });
 
 pauseButton.addEventListener("click", () => {
