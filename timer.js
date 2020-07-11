@@ -21,9 +21,15 @@ const timer = () => {
 };
 
 startButton.addEventListener("click", () => {
-  currentSessionTime = timerSeconds;
+  resetTimerSeconds();
   timerInterval = setInterval(timer, 1000);
   status.textContent = "Keep Working";
+});
+
+stopButton.addEventListener("click", () => {
+  clearInterval(timerInterval);
+  resetTimerSeconds();
+  displayTimeLeft(currentSessionTime);
 });
 
 const displayTimeLeft = (seconds) => {
@@ -32,4 +38,8 @@ const displayTimeLeft = (seconds) => {
   timerDisplay.textContent = `${minutes}:${
     remainderSeconds < 10 ? "0" : ""
   }${remainderSeconds}`;
+};
+
+const resetTimerSeconds = function () {
+  currentSessionTime = timerSeconds;
 };
