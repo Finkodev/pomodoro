@@ -1,35 +1,41 @@
-const status = document.querySelector("#timer-message");
+const timerMessage = document.querySelector("#timer-message");
 const timerDisplay = document.querySelector("#timer-display");
 
 const startButton = document.querySelector("#start-button");
 const pauseButton = document.querySelector("#pause-button");
 const stopButton = document.querySelector("#stop-button");
 
-let timerSeconds = 1500;
-let currentSessionTime = 1500;
-let breakSessionTime = 300;
+let workSessionDuration = 1500;
+let currentTimeLeftInSession = 1500;
+let breakSessionDuration = 300;
 let timerInterval = null;
 
 const timer = () => {
-  currentSessionTime--;
-  if (currentSessionTime < 0) {
+  currentTimeLeftInSession--;
+  if (currentTimeLeftInSession < 0) {
     clearInterval(timerInterval);
-    currentSessionTime = 0;
-    status.textContent = "Take a break";
+    currentTimeLeftInSession = 0;
+    timerMessage.textContent = "Take a break";
   }
-  displayTimeLeft(currentSessionTime);
+  displayTimeLeft(currentTimeLeftInSession);
 };
 
 startButton.addEventListener("click", () => {
-  resetTimerSeconds();
   timerInterval = setInterval(timer, 1000);
-  status.textContent = "Keep Working";
+  timerMessage.textContent = "Keep Working";
 });
 
 stopButton.addEventListener("click", () => {
   clearInterval(timerInterval);
   resetTimerSeconds();
-  displayTimeLeft(currentSessionTime);
+  displayTimeLeft(currentTimeLeftInSession);
+  timerMessage.textContent = "Stopped...";
+});
+
+pauseButton.addEventListener("click", () => {
+  clearInterval(timerInterval);
+  displayTimeLeft(currentTimeLeftInSession);
+  timerMessage.textContent = "Pausing...";
 });
 
 const displayTimeLeft = (seconds) => {
@@ -41,5 +47,5 @@ const displayTimeLeft = (seconds) => {
 };
 
 const resetTimerSeconds = function () {
-  currentSessionTime = timerSeconds;
+  currentTimeLeftInSession = workSessionDuration;
 };
