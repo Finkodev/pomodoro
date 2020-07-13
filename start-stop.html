@@ -1,0 +1,24 @@
+<script>
+  var start = document.getElementById("start");
+  var stop = document.getElementById("stop");
+
+  var wm = document.getElementById("w_minutes");
+  var ws = document.getElementById("w_seconds");
+
+  //timer variable
+  var startTimer;
+  start.addEventListener("click", function () {
+    if (startTimer === undefined) {
+      startTimer = setInterval(timer, 1000);
+    } else {
+    }
+  });
+  function timer() {
+    if (ws.innerText != 0) {
+      ws.innerText--;
+    } else if (wm.innerText != 0 && ws.innerText == 0) {
+      ws.innerText = 59;
+      wm.innertext--;
+    }
+  }
+</script>
